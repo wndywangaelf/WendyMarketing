@@ -164,28 +164,48 @@ html, body { width:100%;height:100%;background:#000;color:var(--white);font-fami
   <!-- ════════════════════════════
        S1 — TITLE
        ════════════════════════════ -->
-  <div class="slide center" id="s1">
-    <div class="orb" style="width:600px;height:600px;background:radial-gradient(circle,#F97316,transparent 70%);top:-200px;left:-100px;opacity:0.14;animation:f1 11s ease-in-out infinite;"></div>
-    <div class="orb" style="width:360px;height:360px;background:radial-gradient(circle,#10B981,transparent 70%);bottom:-100px;right:80px;opacity:0.10;animation:f2 13s ease-in-out infinite;"></div>
+  <div class="slide no-pad" id="s1">
+    <div style="display:grid;grid-template-columns:1fr 420px;height:100%">
 
-    <div class="a tag">
-      <span data-en="ChronoAI · Brand Director · Week 10 · Friday Review · 6 March 2026" data-zh="ChronoAI · 品牌总监 · 第10周 · 周五复盘 · 2026年3月6日">ChronoAI · Brand Director · Week 10 · Friday Review · 6 March 2026</span>
-    </div>
+      <!-- LEFT: Content -->
+      <div style="padding:72px 64px;display:flex;flex-direction:column;justify-content:center;position:relative">
+        <div class="orb" style="width:500px;height:500px;background:radial-gradient(circle,#F97316,transparent 70%);top:-180px;left:-120px;opacity:0.13;animation:f1 11s ease-in-out infinite;"></div>
+        <div class="orb" style="width:280px;height:280px;background:radial-gradient(circle,#10B981,transparent 70%);bottom:-80px;left:60px;opacity:0.09;animation:f2 13s ease-in-out infinite;"></div>
 
-    <div class="a D" data-en="Marc.AI:" data-zh="Marc.AI：">Marc.AI:</div>
-    <div class="a D c-blue" data-en="First B2B Signal." data-zh="首个B2B信号。">First B2B Signal.</div>
-    <div class="a D outline" data-en="SoulGarden: Week 11." data-zh="SoulGarden：第11周。">SoulGarden: Week 11.</div>
+        <div class="a tag">
+          <span data-en="ChronoAI · Brand Director · Week 10 · Friday Review · 6 March 2026" data-zh="ChronoAI · 品牌总监 · 第10周 · 周五复盘 · 2026年3月6日">ChronoAI · Brand Director · Week 10 · Friday Review · 6 March 2026</span>
+        </div>
 
-    <div class="divider a" style="margin:20px auto"></div>
+        <div class="a D2" data-en="Marc.AI:" data-zh="Marc.AI：">Marc.AI:</div>
+        <div class="a D2 c-blue" data-en="First B2B Signal." data-zh="首个B2B信号。">First B2B Signal.</div>
+        <div class="a D2 outline" style="margin-bottom:24px" data-en="SoulGarden: Wk 11." data-zh="SoulGarden：第11周。">SoulGarden: Wk 11.</div>
 
-    <div class="a pill-row" style="justify-content:center">
-      <div class="pill pill-blue"><span>🎯</span><span data-en="Marc.AI PMF confirmed — 10 agency contacts" data-zh="Marc.AI PMF已确认 — 10个代理商联系人">Marc.AI PMF confirmed — 10 agency contacts</span></div>
-      <div class="pill pill-red"><span>⚠️</span><span data-en="SoulGarden acquisition — full launch Week 11" data-zh="SoulGarden获客 — 第11周全面启动">SoulGarden acquisition — full launch Week 11</span></div>
-      <div class="pill pill-green"><span>⚡</span><span data-en="n8n dashboard automated · Gate 1 live" data-zh="n8n 看板自动化 · 第一关运行中">n8n dashboard automated · Gate 1 live</span></div>
-    </div>
+        <div class="a" style="display:flex;flex-direction:column;gap:8px">
+          <div class="pill pill-blue" style="width:fit-content"><span>🎯</span><span data-en="Marc.AI PMF confirmed — 10 agency contacts" data-zh="Marc.AI PMF已确认 — 10个代理商联系人">Marc.AI PMF confirmed — 10 agency contacts</span></div>
+          <div class="pill pill-red" style="width:fit-content"><span>⚠️</span><span data-en="SoulGarden acquisition — full launch Week 11" data-zh="SoulGarden获客 — 第11周全面启动">SoulGarden acquisition — full launch Week 11</span></div>
+          <div class="pill pill-green" style="width:fit-content"><span>⚡</span><span data-en="n8n dashboard automated · Gate 1 live" data-zh="n8n 看板自动化 · 第一关运行中">n8n dashboard automated · Gate 1 live</span></div>
+        </div>
 
-    <div class="a" style="margin-top:14px;font-size:11px;color:var(--dim);letter-spacing:0.06em;text-align:center">
-      <span data-en="Week 10 · 2–6 March 2026 · Brand Director Weekly Review" data-zh="第10周 · 2026年3月2-6日 · 品牌总监周度复盘">Week 10 · 2–6 March 2026 · Brand Director Weekly Review</span>
+        <div class="a" style="margin-top:20px;font-size:11px;color:var(--dim);letter-spacing:0.06em">
+          <span data-en="Week 10 · 2–6 March 2026 · Brand Director Weekly Review" data-zh="第10周 · 2026年3月2-6日 · 品牌总监周度复盘">Week 10 · 2–6 March 2026 · Brand Director Weekly Review</span>
+        </div>
+      </div>
+
+      <!-- RIGHT: Photo -->
+      <div style="position:relative;overflow:hidden;border-left:1px solid var(--border)">
+        <img src="IMG_wendy_stage.png" alt="Wendy Wang, Brand Director, Chrono AI at PRCA APAC 2026"
+             style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;filter:brightness(0.9)">
+        <!-- gradient blends left edge into deck bg -->
+        <div style="position:absolute;inset:0;background:linear-gradient(90deg,var(--bg) 0%,transparent 30%)"></div>
+        <!-- gradient darkens bottom slightly -->
+        <div style="position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,0.35) 0%,transparent 40%)"></div>
+        <!-- caption bottom -->
+        <div style="position:absolute;bottom:28px;left:28px;right:16px">
+          <div style="font-size:9px;font-weight:700;letter-spacing:0.18em;color:rgba(255,255,255,0.45);text-transform:uppercase;margin-bottom:4px">PRCA APAC Conference · 4 March 2026</div>
+          <div style="font-size:13px;font-weight:700;color:rgba(255,255,255,0.85);line-height:1.4" data-en="Wendy Wang — Brand Director, ChronoAI" data-zh="Wendy Wang — 品牌总监，ChronoAI">Wendy Wang — Brand Director, ChronoAI</div>
+        </div>
+      </div>
+
     </div>
   </div>
 
