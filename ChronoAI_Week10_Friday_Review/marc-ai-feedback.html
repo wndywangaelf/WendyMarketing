@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<title>Marc.AI — PRCA Feedback Report · Week 10</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:         #060608;
+  --surface:    #0f1014;
+  --surface2:   #161820;
+  --border:     rgba(255,255,255,0.07);
+  --border2:    rgba(255,255,255,0.12);
+  --white:      #ffffff;
+  --off:        rgba(255,255,255,0.88);
+  --muted:      rgba(255,255,255,0.60);
+  --dim:        rgba(255,255,255,0.30);
+  --dimmer:     rgba(255,255,255,0.10);
+  --blue:       #3B82F6;
+  --blue-l:     #93C5FD;
+  --green:      #10B981;
+  --green-l:    #34D399;
+  --amber:      #F59E0B;
+  --amber-l:    #FCD34D;
+  --red:        #EF4444;
+  --red-l:      #FCA5A5;
+  --purple:     #8B5CF6;
+  --purple-l:   #C4B5FD;
+  --orange:     #F97316;
+}
+
+html, body {
+  background: var(--bg);
+  color: var(--white);
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+/* TOP NAV */
+.nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(6,6,8,0.92); backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 40px;
+}
+.nav-left { display: flex; align-items: center; gap: 16px; }
+.nav-back {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 5px 12px; border-radius: 20px;
+  border: 1px solid var(--border); background: var(--surface);
+  color: var(--muted); font-size: 11px; font-weight: 600;
+  letter-spacing: 0.06em; text-decoration: none;
+  transition: all 0.2s;
+}
+.nav-back:hover { background: var(--surface2); color: var(--off); }
+.nav-logo { font-size: 11px; font-weight: 700; letter-spacing: 0.2em; color: var(--dim); text-transform: uppercase; }
+.nav-right { display: flex; align-items: center; gap: 12px; }
+.badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 600;
+  border: 1px solid;
+}
+.badge-blue   { background: rgba(59,130,246,0.1);  border-color: rgba(59,130,246,0.3);  color: var(--blue-l); }
+.badge-green  { background: rgba(16,185,129,0.1);  border-color: rgba(16,185,129,0.3);  color: var(--green-l); }
+.badge-amber  { background: rgba(245,158,11,0.1);  border-color: rgba(245,158,11,0.3);  color: var(--amber-l); }
+.badge-purple { background: rgba(139,92,246,0.1);  border-color: rgba(139,92,246,0.3);  color: var(--purple-l); }
+
+/* PAGE */
+.page { max-width: 860px; margin: 0 auto; padding: 56px 40px 100px; }
+
+/* HEADER */
+.doc-header { margin-bottom: 48px; }
+.doc-meta { font-size: 11px; font-weight: 600; letter-spacing: 0.18em; color: var(--dim); text-transform: uppercase; margin-bottom: 14px; }
+.doc-title { font-size: 40px; font-weight: 900; letter-spacing: -0.03em; line-height: 1.05; margin-bottom: 10px; }
+.doc-subtitle { font-size: 16px; color: var(--muted); line-height: 1.6; max-width: 600px; }
+
+/* VERDICT BANNER */
+.verdict {
+  margin: 0 0 40px;
+  padding: 24px 28px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(59,130,246,0.10), rgba(139,92,246,0.08));
+  border: 1px solid rgba(59,130,246,0.25);
+  display: flex; align-items: center; gap: 28px;
+}
+.verdict-score { text-align: center; flex-shrink: 0; }
+.verdict-score .big { font-size: 52px; font-weight: 900; letter-spacing: -0.05em; line-height: 1; color: var(--blue-l); }
+.verdict-score .label { font-size: 10px; font-weight: 700; letter-spacing: 0.16em; color: var(--dim); text-transform: uppercase; margin-top: 4px; }
+.verdict-divider { width: 1px; height: 60px; background: var(--border2); flex-shrink: 0; }
+.verdict-text .v-tag { font-size: 10px; font-weight: 700; letter-spacing: 0.18em; color: var(--blue-l); text-transform: uppercase; margin-bottom: 6px; }
+.verdict-text .v-head { font-size: 20px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 5px; }
+.verdict-text .v-body { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+/* STATS ROW */
+.stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 40px; }
+.stat-card { padding: 18px 16px; border-radius: 12px; background: var(--surface); border: 1px solid var(--border); text-align: center; }
+.stat-card .num { font-size: 36px; font-weight: 900; letter-spacing: -0.04em; line-height: 1; }
+.stat-card .desc { font-size: 11px; color: var(--muted); margin-top: 5px; line-height: 1.4; }
+.stat-card .sub  { font-size: 10px; color: var(--dim); margin-top: 3px; }
+
+/* SECTION */
+.section { margin-bottom: 40px; }
+.section-title {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--dim); margin-bottom: 16px;
+  padding-bottom: 10px; border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: 10px;
+}
+.section-title span { color: var(--dimmer); font-weight: 400; }
+
+/* FINDING CARDS */
+.finding-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.finding-card {
+  padding: 18px 20px; border-radius: 12px;
+  background: var(--surface); border: 1px solid var(--border);
+}
+.finding-card.full { grid-column: 1 / -1; }
+.finding-icon { font-size: 20px; margin-bottom: 10px; }
+.finding-head { font-size: 13px; font-weight: 700; margin-bottom: 6px; color: var(--off); }
+.finding-body { font-size: 12px; color: var(--muted); line-height: 1.65; }
+.finding-tag { display: inline-block; margin-top: 10px; padding: 3px 8px; border-radius: 6px; font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+
+/* QUOTE */
+.quote-card {
+  padding: 20px 22px; border-radius: 12px;
+  background: rgba(59,130,246,0.05);
+  border-left: 3px solid var(--blue);
+  margin-bottom: 10px;
+}
+.quote-text { font-size: 14px; font-style: italic; color: var(--off); line-height: 1.7; }
+.quote-source { font-size: 10px; color: var(--dim); margin-top: 8px; font-style: normal; letter-spacing: 0.1em; text-transform: uppercase; }
+
+/* THEME TABLE */
+.theme-list { display: flex; flex-direction: column; gap: 2px; }
+.theme-row {
+  display: flex; align-items: center; gap: 14px;
+  padding: 12px 16px; border-radius: 10px;
+  background: var(--surface); border: 1px solid var(--border);
+  transition: background 0.15s;
+}
+.theme-row:hover { background: var(--surface2); }
+.theme-rank { font-size: 11px; font-weight: 700; color: var(--dim); min-width: 22px; }
+.theme-label { font-size: 13px; font-weight: 600; color: var(--off); flex: 1; }
+.theme-count { font-size: 11px; color: var(--muted); }
+.theme-bar-wrap { width: 100px; height: 4px; background: var(--dimmer); border-radius: 4px; overflow: hidden; }
+.theme-bar { height: 100%; border-radius: 4px; }
+
+/* PIPELINE TABLE */
+.pipeline-table { width: 100%; border-collapse: collapse; }
+.pipeline-table th {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--dim); padding: 10px 14px; border-bottom: 1px solid var(--border);
+  text-align: left;
+}
+.pipeline-table td {
+  font-size: 12px; color: var(--muted); padding: 12px 14px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+.pipeline-table tr:last-child td { border-bottom: none; }
+.pipeline-table td:first-child { font-weight: 600; color: var(--off); }
+.status-pill {
+  display: inline-flex; padding: 2px 8px; border-radius: 6px;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.08em;
+}
+.s-hot   { background: rgba(239,68,68,0.12);   color: var(--red-l);    border: 1px solid rgba(239,68,68,0.25); }
+.s-warm  { background: rgba(245,158,11,0.12);  color: var(--amber-l);  border: 1px solid rgba(245,158,11,0.25); }
+.s-new   { background: rgba(59,130,246,0.12);  color: var(--blue-l);   border: 1px solid rgba(59,130,246,0.25); }
+
+/* NEXT STEPS */
+.next-list { display: flex; flex-direction: column; gap: 8px; }
+.next-row {
+  display: flex; align-items: flex-start; gap: 14px;
+  padding: 14px 16px; border-radius: 10px;
+  background: var(--surface); border: 1px solid var(--border);
+}
+.next-date { font-size: 11px; font-weight: 700; color: var(--dim); min-width: 72px; flex-shrink: 0; padding-top: 1px; }
+.next-text { font-size: 13px; color: var(--off); line-height: 1.5; flex: 1; }
+.next-text .owner { font-size: 11px; color: var(--dim); margin-top: 3px; }
+
+/* DIVIDER */
+hr { border: none; border-top: 1px solid var(--border); margin: 32px 0; }
+
+/* SCROLL ANIMATION */
+@keyframes fadeUp { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+.page > * { animation: fadeUp 0.5s ease both; }
+.page > *:nth-child(1) { animation-delay: 0.05s; }
+.page > *:nth-child(2) { animation-delay: 0.10s; }
+.page > *:nth-child(3) { animation-delay: 0.15s; }
+.page > *:nth-child(4) { animation-delay: 0.20s; }
+.page > *:nth-child(5) { animation-delay: 0.25s; }
+.page > *:nth-child(6) { animation-delay: 0.30s; }
+.page > *:nth-child(7) { animation-delay: 0.35s; }
+.page > *:nth-child(8) { animation-delay: 0.40s; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-left">
+    <a href="index.html" class="nav-back">← Back to Deck</a>
+    <div class="nav-logo">ChronoAI</div>
+  </div>
+  <div class="nav-right">
+    <span class="badge badge-blue">Marc.AI</span>
+    <span class="badge badge-green">PMF Confirmed</span>
+    <span class="badge badge-purple">PRCA APAC · 4 Mar 2026</span>
+  </div>
+</nav>
+
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="doc-header">
+    <div class="doc-meta">Marc.AI · Product-Market Fit Report · Week 10 · Confidential</div>
+    <div class="doc-title">PRCA Conference<br>Feedback & Findings</div>
+    <div class="doc-subtitle">Consolidated insights from 10 agency conversations at PRCA APAC 2026. Wendy's keynote on AI automation triggered unprompted interest from agency leaders across Singapore and APAC.</div>
+  </div>
+
+  <!-- VERDICT BANNER -->
+  <div class="verdict">
+    <div class="verdict-score">
+      <div class="big">10</div>
+      <div class="label">Conversations</div>
+    </div>
+    <div class="verdict-divider"></div>
+    <div class="verdict-text">
+      <div class="v-tag">PMF Verdict · PRCA APAC · 4 March 2026</div>
+      <div class="v-head">Hard YES — Agencies Want Marc.AI</div>
+      <div class="v-body">Every agency approached us — we didn't pitch them. After the keynote, 10 agency directors and senior strategists asked about Marc.AI unprompted. All identified the same pain point: too much time on manual client deliverables, not enough on strategy.</div>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="num" style="color:var(--blue-l)">10</div>
+      <div class="desc">Conversations held</div>
+      <div class="sub">Target was 3</div>
+    </div>
+    <div class="stat-card">
+      <div class="num" style="color:var(--green-l)">10</div>
+      <div class="desc">B2B emails collected</div>
+      <div class="sub">First pipeline</div>
+    </div>
+    <div class="stat-card">
+      <div class="num" style="color:var(--amber-l)">100%</div>
+      <div class="desc">Agency client type</div>
+      <div class="sub">Client servicing focus</div>
+    </div>
+    <div class="stat-card">
+      <div class="num" style="color:var(--purple-l)">0</div>
+      <div class="desc">Cold outreach needed</div>
+      <div class="sub">All inbound after keynote</div>
+    </div>
+  </div>
+
+  <!-- KEY QUOTES -->
+  <div class="section">
+    <div class="section-title">Direct Feedback <span>— verbatim from conversations</span></div>
+
+    <div class="quote-card">
+      <div class="quote-text">"We spend about 40% of our time writing briefs, status reports, and client decks. If Marc.AI can automate that — we want it for every account manager on our team."</div>
+      <div class="quote-source">Agency Director · Mid-size integrated agency · Approached after keynote</div>
+    </div>
+
+    <div class="quote-card">
+      <div class="quote-text">"The AI angle is what made this interesting. We've tried tools before but they don't understand the PR context. You're building something that actually thinks like a strategist."</div>
+      <div class="quote-source">Senior PR Strategist · Regional agency · APAC-focused</div>
+    </div>
+
+    <div class="quote-card">
+      <div class="quote-text">"My biggest problem right now is onboarding new clients. It takes 2–3 weeks just to get them briefed properly. Could Marc.AI accelerate that?"</div>
+      <div class="quote-source">Account Director · Boutique brand agency · Expressed interest in demo</div>
+    </div>
+  </div>
+
+  <!-- KEY THEMES -->
+  <div class="section">
+    <div class="section-title">Top Pain Points Identified <span>— mentioned across 10 conversations</span></div>
+
+    <div class="theme-list">
+      <div class="theme-row">
+        <div class="theme-rank">#1</div>
+        <div class="theme-label">Manual brief writing & client reports</div>
+        <div class="theme-count">8 / 10</div>
+        <div class="theme-bar-wrap"><div class="theme-bar" style="width:80%;background:var(--blue)"></div></div>
+      </div>
+      <div class="theme-row">
+        <div class="theme-rank">#2</div>
+        <div class="theme-label">New client onboarding takes too long</div>
+        <div class="theme-count">6 / 10</div>
+        <div class="theme-bar-wrap"><div class="theme-bar" style="width:60%;background:var(--blue)"></div></div>
+      </div>
+      <div class="theme-row">
+        <div class="theme-rank">#3</div>
+        <div class="theme-label">Campaign strategy documentation is repetitive</div>
+        <div class="theme-count">6 / 10</div>
+        <div class="theme-bar-wrap"><div class="theme-bar" style="width:60%;background:var(--purple)"></div></div>
+      </div>
+      <div class="theme-row">
+        <div class="theme-rank">#4</div>
+        <div class="theme-label">Junior team quality inconsistency on deliverables</div>
+        <div class="theme-count">5 / 10</div>
+        <div class="theme-bar-wrap"><div class="theme-bar" style="width:50%;background:var(--purple)"></div></div>
+      </div>
+      <div class="theme-row">
+        <div class="theme-rank">#5</div>
+        <div class="theme-label">Too much time on admin vs. strategic client work</div>
+        <div class="theme-count">5 / 10</div>
+        <div class="theme-bar-wrap"><div class="theme-bar" style="width:50%;background:var(--amber)"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FINDINGS -->
+  <div class="section">
+    <div class="section-title">Key Findings <span>— strategic insights</span></div>
+
+    <div class="finding-grid">
+      <div class="finding-card">
+        <div class="finding-icon">🎯</div>
+        <div class="finding-head">ICP is clearer than expected</div>
+        <div class="finding-body">Mid-size agencies (10–50 people) with multiple client accounts are the clearest fit. They have the pain, budget, and urgency — but don't have the resources to build internal AI tools.</div>
+        <span class="finding-tag" style="background:rgba(59,130,246,0.1);color:var(--blue-l)">ICP CONFIRMED</span>
+      </div>
+
+      <div class="finding-card">
+        <div class="finding-icon">💡</div>
+        <div class="finding-head">Use case is "client servicing layer"</div>
+        <div class="finding-body">Not content creation — agencies want Marc.AI to handle the structural, repeatable work: briefs, onboarding decks, monthly reports, strategy templates. The value is time reclaimed.</div>
+        <span class="finding-tag" style="background:rgba(16,185,129,0.1);color:var(--green-l)">USE CASE SHARP</span>
+      </div>
+
+      <div class="finding-card">
+        <div class="finding-icon">⚡</div>
+        <div class="finding-head">Keynote created inbound pull</div>
+        <div class="finding-body">Zero cold outreach was needed. Wendy's presentation of "My New Flow" made the use case tangible — people saw themselves in the problem. This is a replicable acquisition motion.</div>
+        <span class="finding-tag" style="background:rgba(249,115,22,0.1);color:var(--orange)">ACQUISITION INSIGHT</span>
+      </div>
+
+      <div class="finding-card">
+        <div class="finding-icon">⚠️</div>
+        <div class="finding-head">Pricing expectations unclear</div>
+        <div class="finding-body">No one asked about price — which means we don't yet know what they'd pay. This is the biggest open question before moving to demo stage. Need to validate pricing range in follow-ups.</div>
+        <span class="finding-tag" style="background:rgba(239,68,68,0.1);color:var(--red-l)">OPEN QUESTION</span>
+      </div>
+
+      <div class="finding-card full">
+        <div class="finding-icon">🌏</div>
+        <div class="finding-head">APAC market is primed</div>
+        <div class="finding-body">Singapore's PR and agency market is small but highly connected. One agency win becomes a case study for the next 10. PRCA is exactly the right community — decision-makers, not just practitioners. The 10 contacts we have represent a meaningful slice of the addressable market in SG.</div>
+        <span class="finding-tag" style="background:rgba(139,92,246,0.1);color:var(--purple-l)">MARKET OPPORTUNITY</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- PIPELINE -->
+  <div class="section">
+    <div class="section-title">B2B Pipeline · First 10 Contacts <span>— collected 4 March 2026</span></div>
+
+    <div style="background:var(--surface);border-radius:12px;border:1px solid var(--border);overflow:hidden">
+      <table class="pipeline-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Role / Agency Type</th>
+            <th>Pain Point Mentioned</th>
+            <th>Interest Level</th>
+            <th>Next Step</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Agency Director · Integrated</td>
+            <td>Brief writing, 40% of team time</td>
+            <td><span class="status-pill s-hot">🔥 Hot</span></td>
+            <td>Schedule demo</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Senior Strategist · Regional PR</td>
+            <td>AI that understands PR context</td>
+            <td><span class="status-pill s-hot">🔥 Hot</span></td>
+            <td>Schedule demo</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>Account Director · Boutique Brand</td>
+            <td>Client onboarding takes 2–3 weeks</td>
+            <td><span class="status-pill s-hot">🔥 Hot</span></td>
+            <td>Schedule demo</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>Managing Director · Digital Agency</td>
+            <td>Junior team consistency</td>
+            <td><span class="status-pill s-warm">⚡ Warm</span></td>
+            <td>Send overview doc</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>Head of Strategy · Full-service</td>
+            <td>Monthly reporting overhead</td>
+            <td><span class="status-pill s-warm">⚡ Warm</span></td>
+            <td>Send overview doc</td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td>Creative Director · Content Agency</td>
+            <td>Campaign strategy documentation</td>
+            <td><span class="status-pill s-warm">⚡ Warm</span></td>
+            <td>Follow-up email</td>
+          </tr>
+          <tr>
+            <td>7</td>
+            <td>VP Client Services · Large Agency</td>
+            <td>Scale without headcount</td>
+            <td><span class="status-pill s-warm">⚡ Warm</span></td>
+            <td>Follow-up email</td>
+          </tr>
+          <tr>
+            <td>8</td>
+            <td>Founder · Boutique Comms</td>
+            <td>Solo founder, needs leverage</td>
+            <td><span class="status-pill s-new">🆕 New</span></td>
+            <td>Nurture sequence</td>
+          </tr>
+          <tr>
+            <td>9</td>
+            <td>Associate Director · Integrated PR</td>
+            <td>New business proposals take too long</td>
+            <td><span class="status-pill s-new">🆕 New</span></td>
+            <td>Nurture sequence</td>
+          </tr>
+          <tr>
+            <td>10</td>
+            <td>Head of Content · Regional Brand</td>
+            <td>Content brief standardisation</td>
+            <td><span class="status-pill s-new">🆕 New</span></td>
+            <td>Nurture sequence</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- NEXT STEPS -->
+  <div class="section">
+    <div class="section-title">Action Plan <span>— Week 11 · 10–14 March 2026</span></div>
+
+    <div class="next-list">
+      <div class="next-row">
+        <div class="next-date">Mon 10 Mar</div>
+        <div class="next-text">
+          Send personalised follow-up email to all 10 contacts — reference their specific pain point mentioned at PRCA
+          <div class="owner">Owner: Wendy · Reference this doc for personalisation</div>
+        </div>
+      </div>
+      <div class="next-row">
+        <div class="next-date">Tue–Wed</div>
+        <div class="next-text">
+          Schedule 3 demos with Hot contacts (#1, #2, #3) — 30-min working session showing the brief automation flow
+          <div class="owner">Owner: Wendy · Demo script to be built this week</div>
+        </div>
+      </div>
+      <div class="next-row">
+        <div class="next-date">Wed 12 Mar</div>
+        <div class="next-text">
+          Send Marc.AI one-pager to Warm contacts (#4–7) — positioning, use case, and a "request a demo" CTA
+          <div class="owner">Owner: Wendy · One-pager to be created</div>
+        </div>
+      </div>
+      <div class="next-row">
+        <div class="next-date">Thu 13 Mar</div>
+        <div class="next-text">
+          Validate pricing range in at least 2 of the 3 demos — ask directly: "What would you budget for a tool that saves 40% of your team's time?"
+          <div class="owner">Owner: Wendy · Critical open question</div>
+        </div>
+      </div>
+      <div class="next-row">
+        <div class="next-date">Fri 14 Mar</div>
+        <div class="next-text">
+          Share Week 11 Marc.AI pipeline update — number of demos completed, pricing data collected, first LOI or verbal commitment
+          <div class="owner">Owner: Wendy · To VP</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- OPEN QUESTIONS -->
+  <div class="section">
+    <div class="section-title">Open Questions <span>— to resolve in demos</span></div>
+
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <div style="padding:12px 16px;border-radius:10px;background:var(--surface);border:1px solid var(--border);display:flex;align-items:flex-start;gap:12px">
+        <span style="color:var(--amber-l);font-weight:700;font-size:13px;flex-shrink:0">?</span>
+        <div>
+          <div style="font-size:13px;font-weight:600;color:var(--off)">What would agencies pay per seat/month?</div>
+          <div style="font-size:12px;color:var(--muted);margin-top:3px">No one asked about price at PRCA. Need to probe directly in demos. Hypothesis: $99–$299/month per user.</div>
+        </div>
+      </div>
+      <div style="padding:12px 16px;border-radius:10px;background:var(--surface);border:1px solid var(--border);display:flex;align-items:flex-start;gap:12px">
+        <span style="color:var(--amber-l);font-weight:700;font-size:13px;flex-shrink:0">?</span>
+        <div>
+          <div style="font-size:13px;font-weight:600;color:var(--off)">Team buy vs. individual buy?</div>
+          <div style="font-size:12px;color:var(--muted);margin-top:3px">Most said "for our team" — does the agency pay or does the individual? Who's the budget holder?</div>
+        </div>
+      </div>
+      <div style="padding:12px 16px;border-radius:10px;background:var(--surface);border:1px solid var(--border);display:flex;align-items:flex-start;gap:12px">
+        <span style="color:var(--amber-l);font-weight:700;font-size:13px;flex-shrink:0">?</span>
+        <div>
+          <div style="font-size:13px;font-weight:600;color:var(--off)">What does MVP need to include to close first paid user?</div>
+          <div style="font-size:12px;color:var(--muted);margin-top:3px">Brief writing + client report automation seems to be the core. What else is a must-have vs. nice-to-have?</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <hr>
+  <div style="display:flex;align-items:center;justify-content:space-between">
+    <div style="font-size:11px;color:var(--dimmer)">Marc.AI · PRCA Feedback Report · Week 10 · ChronoAI Internal · Confidential</div>
+    <a href="index.html" style="font-size:11px;color:var(--dim);text-decoration:none;display:flex;align-items:center;gap:5px;">← Back to Week 10 Deck</a>
+  </div>
+
+</div>
+</body>
+</html>
